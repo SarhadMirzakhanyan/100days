@@ -3,6 +3,7 @@ from turtle import Turtle
 PADDLE_HEIGHT = 4
 PADDLE_COLOR = "white"
 
+
 class Paddle(Turtle):
 
     def __init__(self, pos, screensize, shape: str = "square", undobuffersize: int = 1000, visible: bool = True) -> None:
