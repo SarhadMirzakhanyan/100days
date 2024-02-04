@@ -8,7 +8,7 @@ class Ball(Turtle):
         super().__init__(shape, undobuffersize, visible)
         self.penup()
         self.color("white")
-        self.seth(45)
+        self.speed = 0.1
 
     def move(self):
         new_x = self.xcor() + self.x_step
@@ -26,5 +26,5 @@ class Ball(Turtle):
     
     def hit_paddle(self, paddle_obj) -> bool:
         if abs(self.xcor() - paddle_obj.xcor()) < 20 and abs(self.ycor() - paddle_obj.ycor()) < 50:
-            print("returning true")
+            self.speed /= 1.1
             return True
