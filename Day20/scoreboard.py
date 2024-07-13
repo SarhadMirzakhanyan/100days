@@ -1,30 +1,47 @@
 from turtle import Turtle
-
-FONT=("Arial","12","normal")
 ALIGNMENT = "center"
+FONT = ("Courier", 24, "normal")
+
 
 class Scoreboard(Turtle):
-    def __init__(self,heigth) -> None:
+    highscore_file = "./highscore.txt"
+    def __init__(self):
         super().__init__()
         self.score = 0
-        self.hideturtle()
-        self.penup()
+        self.highscore = 0
         self.color("white")
-        self.goto((0,heigth//2 - 20))
-    
-    def add_to_score(self):
+        self.penup()
+        self.goto(0, 270)
+        self.hideturtle()
+        self.update_scoreboard()
+
+    def update_scoreboard(self):
+        self.clear()
+        self.write(f"Score: {self.score}, Highscore: {self.highscore}", align=ALIGNMENT, font=FONT)
+
+    def game_over(self):
+        self.goto(0, 0)
+        self.write("GAME OVER", align=ALIGNMENT, font=FONT)
+
+    def increase_score(self):
         self.score += 1
         self.clear()
-        self.show_score()
-    
-    def show_score(self):
-        self.write(f"Score: {self.score}",align=ALIGNMENT,font=FONT)
+        self.update_scoreboard()
 
+    def read_highscore(self):
+        with open(self.highscore_file) as f:
+            self.highscore = f.read()
     
-    def game_over(self):
-        self.goto(0,0)
-        self.write("GAME OVER",align=ALIGNMENT,font=FONT)
+    def write_highscore(self):
+        with open(self.highscore_file,"w") as f:
+            f.write(str(self.highscore))
 
-    def __repr__(self) -> str:
-        return f"The score is {self.score}"
-    
+    def update_highscore(self):
+        self.highscore = self.score
+        self.write_highscore()
+
+    def reset_score(self):
+        if self.score > self.highscore:
+            self.update_highscore()
+        self.score = 0
+        self.update_scoreboard()

@@ -27,7 +27,6 @@ screen_width_border = screen.window_width()/2 - 20
 
 while game_is_on:
     time.sleep(ball.speed)
-    print(ball.speed)
 
     ball.move()
     if ball.xcor() > screen_width_border:
